@@ -302,47 +302,6 @@ def add_is_great_lent_feature(df, date_col='Date', new_col='is_great_lent'):
 
     return df
     
-def add_is_advent_fast_feature(df, date_col='Date', new_col='is_advent_fast'):
-    """
-    Adds a boolean 'is_advent_fast' feature indicating whether the date falls within
-    the Advent Fast (Nativity Fast) for the Coptic Church, typically Nov 25 – Jan 6 (43 days).
-
-    Parameters:
-    - df: pandas DataFrame
-    - date_col: datetime column
-    - new_col: name of the new boolean feature column
-
-    Returns:
-    - DataFrame with the is_advent_fast column added
-    """
-    advent_periods = [
-        ("2019-11-25", "2020-01-06"),
-        ("2020-11-25", "2021-01-06"),
-        ("2021-11-25", "2022-01-06"),
-        ("2022-11-25", "2023-01-06"),
-        ("2023-11-25", "2024-01-06"),
-        ("2024-11-25", "2025-01-06"),
-        ("2025-11-25", "2026-01-06"),
-        ("2026-11-25", "2027-01-06"),
-        ("2027-11-25", "2028-01-06"),
-        ("2028-11-25", "2029-01-06"),
-        ("2029-11-25", "2030-01-06"),
-        ("2030-11-25", "2031-01-06"),
-        ("2031-11-25", "2032-01-06"),
-        ("2032-11-25", "2033-01-06"),
-        ("2033-11-25", "2034-01-06"),
-        ("2034-11-25", "2035-01-06"),
-    ]
-
-    df = df.copy()
-    df[date_col] = pd.to_datetime(df[date_col])
-    df[new_col] = False
-
-    for start, end in advent_periods:
-        mask = (df[date_col] >= pd.to_datetime(start)) & (df[date_col] <= pd.to_datetime(end))
-        df.loc[mask, new_col] = True
-
-    return df
 
 def is_national_holiday(df, date_col="Date", new_col="is_national_holiday"):
     """
